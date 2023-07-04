@@ -1,2 +1,8 @@
-package fr.fms.dao;public interface UserRepository {
+package fr.fms.dao;
+
+import fr.fms.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User,Long> {
+    public User findByUsername(String userName);
 }

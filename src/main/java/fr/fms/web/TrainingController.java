@@ -1,6 +1,7 @@
 package fr.fms.web;
 
 import fr.fms.entities.Training;
+import fr.fms.entities.User;
 import fr.fms.service.ITrainingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,4 +53,11 @@ private ITrainingServiceImpl iTrainingServiceImpl;
                 .toUri();
         return ResponseEntity.created(location).build();
     }
+
+//    @GetMapping("/users?email={email}")
+//    public ResponseEntity<Training> getUser(@PathVariable("email") String email){
+//        Optional<User> user = iTrainingServiceImpl.getUserByEmail(email);
+//        if(user.isPresent()) return new ResponseEntity<>(user.get(), HttpStatus.OK);
+//        return null;
+//    }
 }
