@@ -1,7 +1,7 @@
 package fr.fms.web;
 
 import fr.fms.entities.Training;
-import fr.fms.entities.User;
+
 import fr.fms.service.ITrainingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

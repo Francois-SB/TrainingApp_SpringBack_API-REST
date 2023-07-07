@@ -1,11 +1,12 @@
 package fr.fms;
 
 import fr.fms.dao.AppRoleRepository;
+import fr.fms.dao.AppUserRepository;
 import fr.fms.dao.TrainingRepository;
-import fr.fms.dao.UserRepository;
 import fr.fms.entities.AppRole;
+import fr.fms.entities.AppUser;
 import fr.fms.entities.Training;
-import fr.fms.entities.User;
+
 import fr.fms.service.AccountServiceImpl;
 import fr.fms.service.ITrainingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class ScrumRabbitApplication implements CommandLineRunner {
 	private TrainingRepository trainingRepository;
 
 	@Autowired
-	UserRepository userRepository;
+	AppUserRepository appUserRepository;
 
 	@Autowired
 	AppRoleRepository appRoleRepository;
@@ -66,8 +67,8 @@ public class ScrumRabbitApplication implements CommandLineRunner {
 		AppRole admin = accountService.getAppRoleByRolename("ADMIN");
 		AppRole user = accountService.getAppRoleByRolename("USER");
 
-		accountService.saveUser(new User( null, "admin@gmail.com","12345",new ArrayList<>(Arrays.asList(user,admin))));
-		accountService.saveUser(new User( null, "pierre@gmail.com","12345", new ArrayList<>(Arrays.asList(user))));
+		accountService.saveUser(new AppUser( null, "admin@gmail.com","12345",new ArrayList<>(Arrays.asList(user,admin))));
+		accountService.saveUser(new AppUser( null, "pierre@gmail.com","12345", new ArrayList<>(Arrays.asList(user))));
 	}
 
 	public void generateDatas(){

@@ -1,8 +1,7 @@
 package fr.fms.service;
 
-import fr.fms.entities.AppRole;
-import fr.fms.entities.User;
-import fr.fms.entities.UserAuth;
+import fr.fms.entities.AppUser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,15 +12,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.net.Authenticator;
 import java.util.ArrayList;
 import java.util.Collection;
 @Configuration
@@ -46,12 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                User user = accountService.getUserByUsername(username);
+                AppUser user = accountService.getUserByUsername(username);
                 Collection<GrantedAuthority> authorities = new ArrayList<>();
                 user.getRoles().forEach( role -> {
                     authorities.add(new SimpleGrantedAuthority(role.getRolename()));
                 });
-                return (UserDetails) new UserAuth(null,user.getUsername(),user.getPassword(),authorities);
+                return new User(user.getUsername(),user.getPassword(),authorities);
             }
         });
     }

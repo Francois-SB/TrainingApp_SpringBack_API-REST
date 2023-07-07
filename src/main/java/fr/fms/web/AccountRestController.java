@@ -1,7 +1,8 @@
 package fr.fms.web;
 
 import fr.fms.entities.AppRole;
-import fr.fms.entities.User;
+import fr.fms.entities.AppUser;
+
 import fr.fms.entities.UserRoleForm;
 import fr.fms.service.AccountServiceImpl;
 import lombok.Data;
@@ -20,9 +21,9 @@ public class AccountRestController {
     AccountServiceImpl accountService;
 
     @GetMapping("/users")
-    ResponseEntity<List<User>> getUsers(){return this.accountService.getUserList();}
+    ResponseEntity<List<AppUser>> getUsers(){return this.accountService.getUserList();}
     @PostMapping("users")
-    public User postUser(@RequestBody User user){ return this.accountService.saveUser(user);}
+    public AppUser postUser(@RequestBody AppUser appuser){ return this.accountService.saveUser(appuser);}
 
     @PostMapping("role")
     public AppRole postRole(@RequestBody AppRole appRole){ return this.accountService.saveAppRole(appRole);}

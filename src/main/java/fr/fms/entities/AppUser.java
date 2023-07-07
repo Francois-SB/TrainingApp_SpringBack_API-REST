@@ -18,7 +18,7 @@ import java.util.Collection;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
+public class AppUser implements Serializable {// AppUser car security a deja une classe User
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

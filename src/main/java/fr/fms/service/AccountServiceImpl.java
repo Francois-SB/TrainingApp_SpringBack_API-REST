@@ -1,30 +1,35 @@
 package fr.fms.service;
 
 import fr.fms.dao.AppRoleRepository;
-import fr.fms.dao.UserRepository;
+import fr.fms.dao.AppUserRepository;
+
 import fr.fms.entities.AppRole;
-import fr.fms.entities.User;
+import fr.fms.entities.AppUser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
-    UserRepository userRepository;
+    AppUserRepository appUserRepository;
 
     @Autowired
     AppRoleRepository appRoleRepository;
 
-//    @Autowired
-//            @Lazy
-//    BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+            @Lazy
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public AppRole saveAppRole(AppRole appRole) {
@@ -33,15 +38,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public User saveUser(User user) {
-//        String hashPw = bCryptPasswordEncoder.encode(user.getPassword());
-//        user.setPassword(hashPw);
-        return userRepository.save(user);
+    public AppUser saveUser(AppUser appUser) {
+        String hashPw = bCryptPasswordEncoder.encode(appUser.getPassword());
+        appUser.setPassword(hashPw);
+        return appUserRepository.save(appUser);
     }
 
     @Override
-    public User getUserByUsername(String usernmae) {
-        return userRepository.findByUsername(usernmae);
+    public AppUser getUserByUsername(String usernmae) {
+        return appUserRepository.findByUsername(usernmae);
     }
 
     @Override
@@ -50,15 +55,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ResponseEntity<List<User>> getUserList() {
-        return ResponseEntity.ok().body(userRepository.findAll());
+    public ResponseEntity<List<AppUser>> getUserList() {
+        return ResponseEntity.ok().body(appUserRepository.findAll());
     }
 
     @Override
     public void AddRoleToUser(String username, String appRolename) {
-        User user = userRepository.findByUsername(username);
+        AppUser appUser = appUserRepository.findByUsername(username);
         AppRole appRole = appRoleRepository.findByRolename(appRolename);
 
-        user.getRoles().add(appRole);
+        appUser.getRoles().add(appRole);
     }
 }
