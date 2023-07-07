@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
 
-
-import javax.management.relation.Role;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,19 +17,19 @@ import java.util.Collection;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
+public class UserAuth implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-private String username;
-@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-private String password;
-@ManyToMany(fetch = FetchType.EAGER)
-private Collection<AppRole> roles = new ArrayList<>();
+    private String username;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+//    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<GrantedAuthority> authorities = new ArrayList<>();
 
 
 
-    public Collection<AppRole> getRoles(){
-    return this.roles;
-}
+    public Collection<GrantedAuthority> getAuthorities(){
+        return this.authorities;
+    }
 }

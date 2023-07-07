@@ -21,6 +21,7 @@ public class TrainingController {
 private ITrainingServiceImpl iTrainingServiceImpl;
 
 //getAll
+
 @GetMapping("/trainings")
     public List<Training> allTrainings(){
     return iTrainingServiceImpl.getAllTrainings();

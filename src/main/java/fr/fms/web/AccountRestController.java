@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Access;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/account")
 public class AccountRestController {
     @Autowired
     AccountServiceImpl accountService;
@@ -30,5 +31,8 @@ public class AccountRestController {
     public void postRoleToUser(@RequestBody UserRoleForm userRoleForm){
         accountService.AddRoleToUser(userRoleForm.getUsername(),userRoleForm.getRolename());
     }
-
+    @GetMapping("/t")
+public String test(){
+        return "test OK";
+}
 }

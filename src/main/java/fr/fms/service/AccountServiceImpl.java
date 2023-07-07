@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +22,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     AppRoleRepository appRoleRepository;
 
-    @Autowired
-            @Lazy
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+//    @Autowired
+//            @Lazy
+//    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public AppRole saveAppRole(AppRole appRole) {
@@ -34,8 +34,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public User saveUser(User user) {
-        String hashPw = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(hashPw);
+//        String hashPw = bCryptPasswordEncoder.encode(user.getPassword());
+//        user.setPassword(hashPw);
         return userRepository.save(user);
     }
 
